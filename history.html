@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js" integrity="sha256-DI6NdAhhFRnO2k51mumYeDShet3I8AKCQf/tf7ARNhI=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>  
+  <script src="script/Common.js"></script>
+  <script src="script/circle.js"></script>
+  <script src="script/history.js"></script>
+  <link rel="stylesheet" href="script/common.css">
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=10">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduce</title>
+  <head>
+    <style>
+    </style>
+  </head>
+  <body class='container' style="text-align:center">
+  
+    <nav class="navbar navbar-default">
+		<div class="container-fluid">
+		    <ul class="nav navbar-nav">
+		      <li class="headerTxt"><a href="index.html">Home</a></li>
+		      <li class="headerTxt"><a href="project.html">Project</a></li>
+		      <li class="headerTxt active"><a href="history.html">History</a></li> 
+		      <li class="headerTxt"><a href="skill.html">Skill</a></li>
+		      <li class="headerTxt"><a href="future.html">Future</a></li>
+			</ul>
+		</div>
+    </nav>
+    
+    <!-- part1 s-->
+    <div class='col-md-12'>
+      <div class='col-md-12 name-container'>
+      	<h3 class='names'><span>Life cirlce</span></h3>
+      	<hr class='hrClass'/>
+      </div>	    
+      <div id='' class='col-md-12'>
+	    <div id='' class='col-md-6'>
+	        <canvas id='canvas' width="400px" height="400px" style=''> </canvas>      
+	    </div>
+	    <div id='trander' class='col-md-6' style='padding: 35px;'>
+	    	<div class="alert alert-warning">Private Time : 취침</div>
+			<div class="alert alert-success">Working Time : 업무</div>
+			<div class="alert alert-info">My Time : 개인공부&운동</div>
+	    </div>
+      </div>
+    </div>    
+    <!-- part1 e-->
+
+    <!-- part2 s-->
+    <div class='col-md-12'>
+      <div class='col-md-12 name-container'>
+      	<h3 class='names'><span>History</span></h3>
+      	<hr class='hrClass'/>
+      </div>	    
+      <div id='storyTeller' class='col-md-12'>
+        <div class='col-md-4'><img class='img-thumbnail img-responsive imgComSize' src='image/child.jpg'></div>
+        <div class='col-md-8'><textArea class='form-control storyTxt'>This is my first story
+I was born in seoul and I leave in Incheon.
+I've always interested in computer programming.</textArea></div>
+      </div>
+      <div class='col-md-12'>
+        <button id='nextBtn' class='btn btn-success' onclick='setNext()' style='float:right'>Next</button>
+      </div>
+    </div>    
+    <!-- part2 e-->
+
+    
+
+
+  </body>
+</html>
+<script>
+var values = [{s:255,e:10,txt:'private time'},{s:10,e:180,txt:'working time'},{s:180,e:255,txt:'my time'}];
+var option = {'radius':'120','button':true,'explain':true};  
+var result = new Object();
+$('#canvas').newCircle({color:'#04B404',line:'4',data:values,option:option,result:function(e){
+    result = e;
+}});
+
+var counter = 1;
+var arr = [['image/child.jpg','This is my first story\nI was born in seoul and I leave in Incheon.\nI\'ve always interested in computer programming.'],['image/student.png','I\'ve studied in Incheon University.\nI like playing computer game.\nYes, I\'m a normal. My parents wanted to become a good soldier.'],['image/soldier.jpg','That time was very exciting.\n I was soldier, and my grade was captin.It was very good and nice.\nBut I wanted to See the new world and I wanted to achive my dream.\nSo I was quick my jobs.'],['image/programmer.jpg','For my dream, I\'ve always studied programming.\nFinally, I became a programmer.\nAnd I am very happy about it.:) ']];
+
+</script>

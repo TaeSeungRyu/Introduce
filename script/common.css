@@ -1,0 +1,164 @@
+.names {
+	color: gray;
+	display: inline-block;
+	height: 20px;
+	margin-bottom: 1px;
+	font-weight: bold;
+}
+
+.name-container {
+	text-align: left;
+}
+
+.hrClass {
+	margin-top: 8px;
+}
+
+.txtTitle {
+	font-size: 17px;
+	color: #848484;
+	font-weight: bold;
+}
+
+.txtBody {
+	font-size: 14px;
+	color: #848484;
+	font-weight: bold;
+}
+
+.cirlce-mother {
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	text-align: center;
+	padding-top: 4.25px;
+	margin-bottom: 5px;
+}
+
+.cirlce-son {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background: white;
+	display: inline-block;
+	line-height: 58px;
+	color: #F79F81;
+	letter-spacing: -1px;
+}
+
+.cirlce-uncle {
+	width: 100%;
+	height: 70px;
+	border-radius: 5px;
+	background: white;
+	display: inline-block;
+	line-height: 68px;
+	margin-bottom: 5px;
+}
+
+#mypower {
+	height: 130px;
+}
+
+.graphItm {
+	display: inline-block;
+}
+
+.skillNm {
+	text-align: center;
+	color: #848484;
+	font-weight: bold;
+}
+
+.imGraphNm {
+	text-align: center;
+	color: #848484;
+	font-weight: bold;
+}
+
+#explaner {
+	width: 200px;
+	height: 50px;
+	background: antiquewhite;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+#explaner2 {
+	border: 3px solid antiquewhite;
+	background: rgba(235, 235, 235, 0.8);
+	border-radius: 70%;
+	width: 200px;
+	height: 100px;
+	line-height: 20px;
+	padding: 15px;
+}
+#trander > div{
+	font-weight: bold;
+	color: #848484;
+}
+.storyTxt{
+	font-weight: bold;
+	color: #848484;
+    font-size: 17px;
+    resize:none;
+    line-height: 35px;
+    height: 222px !important;
+}
+.imgComSize{
+    min-width : 240px;
+    min-height : 222px;
+    max-height : 224px;
+    max-width : 270px;
+}
+
+#storyTeller{
+    margin-bottom : 10px;
+}
+.headerTxt, .navbar-brand{
+    font-weight: bold;
+	color: #848484;
+    font-size: 17px;
+}
+.container{
+    margin-bottom: 25px;
+}
+#dropper{
+    height:400px;
+    border : 4px dashed bisque;
+    text-align:center;
+    font-weight: bold;
+	color: #848484;
+    font-size: 19px;
+    line-height: 400px;
+    padding : 15px;
+}
+.tableTxts > th {
+    text-align:center;
+    font-weight: bold;
+}
+.alert{
+    text-align:center;
+    font-weight: bold;	
+}
+.futureImgContainer{
+	height: 250px;
+	text-align: center;
+}
+.justViewText{
+	width: 87%;
+    display: inline-block;
+    margin-top: 7px;
+	font-weight: bold;
+    font-size: 15px;
+}
+.portrate{
+	width: 100%;
+    height: 150px;
+}
+.wlfkfakfk{
+	margin-bottom: 30px;
+    border: 1px solid #e6e5e5;
+    padding: 10px;
+    border-radius : 20px;
+}
