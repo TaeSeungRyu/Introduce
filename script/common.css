@@ -12,6 +12,7 @@
 
 .hrClass {
 	margin-top: 8px;
+	border-top : 	3px solid white;
 }
 
 .txtTitle {
@@ -104,6 +105,7 @@
     resize:none;
     line-height: 35px;
     height: 222px !important;
+	background-color: white !important;
 }
 .imgComSize{
     min-width : 240px;
@@ -124,7 +126,7 @@
     margin-bottom: 25px;
 }
 #dropper{
-    height:400px;
+    height: auto;
     border : 4px dashed bisque;
     text-align:center;
     font-weight: bold;
@@ -161,4 +163,23 @@
     border: 1px solid #e6e5e5;
     padding: 10px;
     border-radius : 20px;
+	background:#f3faff;
+}
+.container{
+	background: linear-gradient(#f6ffff, #b6ccfb ) fixed;
+}
+.tlqkf{
+	background:#ffdcdc;
+}
+#moreTable{
+	background:white;
+}
+#moreTable tr th {
+	padding : 13px;
+}
+.showingCons{
+    border: 4px solid #fff7f7;
+    padding: 10px;
+    padding-bottom: 30px;
+	border-radius : 25px;
 }

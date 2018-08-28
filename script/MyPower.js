@@ -5,6 +5,8 @@ price[2] = [ 80, 'PHP','php로 프로그래밍을 할줄 압니다.' ];
 price[3] = [ 70, 'NodeJs', 'NodeJs로 서버를 구성할 줄 압니다.' ];
 price[4] = [ 40, 'Python', 'Python은 기초정도 수준의 서버를 만들어 보았습니다.' ];
 price[5] = [ 70, 'DataBase','다루어본 데이터베이스로는 Mssql, Mysql, Oracle, Postgre이 있습니다.' ];
+price[6] = [ 85, 'Android', '안드로이드 프로그래밍 가능합니다.(뷰는 웹뷰)' ];
+price[7] = [ 50, 'IOS', 'IOS는 어느정도 가능합니다.' ];
 function setPower(){
 	var width = $('#mypower').width();
 	var height = $('#mypower').height();
@@ -24,8 +26,8 @@ function setPower(){
 		var doing = setInterval(function(z){
 			if(increase <= startNum){
 				$(that).children().remove();
-				var txt = '<div class="imGraphNm" style="background:snow;width:'+i_width+'px;height:'+(endNum - increase)+'px;line-height:5%;">'+increase+'%</div>';
-				txt += '<div class="imGraph" style="background:'+color[i]+';width:'+i_width+'px;height:'+increase+'px;" id="showMore_'+i+'" explain="'+explain+'" onclick="showExplain(this)"></div>';
+				var txt = '<div class="imGraphNm" style="background:#c2d6fb;width:'+i_width+'px;height:'+(endNum - increase)+'px;line-height:5%;">'+increase+'%</div>';
+				txt += '<div class="imGraph" style="background:'+color[i]+';width:'+i_width+'px;height:'+increase+'px;" id="showMore_'+i+'" explain="'+explain+'" onclick=""></div>';
 				txt += '<div class="skillNm">'+Name+'</div>';
 				$(that).append(txt);
 				increase ++;

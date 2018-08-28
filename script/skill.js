@@ -20,7 +20,7 @@
                 else if(type == '2'){
                     $(this).children().remove();
                     $(this).append($('<table>',{'id':'moreTable','class':'table table-bordered'}));
-                    var skillArr = [['Java & JSP','상'],['PhP','중상'],['NodeJs','중상'],['Python','중하'],['Spring & Mybatis','중상'],['Redis 서버','중상'],['Mqtt관련 서버','중상']];
+                    var skillArr = [['Java & JSP','상'],['PhP','중상'],['NodeJs','중상'],['Python','중하'],['Spring & Mybatis','중상'],['Redis 서버','중상'],['Mqtt관련 서버','중상'],['FCM','중']];
                     $('#moreTable').append($('<tr>',{'id':'explainer','class':'tableTxts'}));
                     $('#explainer').append("<th>Target</th><th>Level</th>");
                     skillArr.forEach(function(val,num){
