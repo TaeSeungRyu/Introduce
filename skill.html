@@ -1,16 +1,95 @@
 <!DOCTYPE html>
 <html>
-	<head>
-	  <meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-	  <meta name="description" content="">
-	  <meta name="author" content="RTS">
-	  <title>Hello</title>
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-	  <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
-	</head>
-	<body class='container'>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js" integrity="sha256-DI6NdAhhFRnO2k51mumYeDShet3I8AKCQf/tf7ARNhI=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>  
+  <script src="script/Common.js"></script>
+  <script src="script/circle.js"></script>
+  <script src="script/skill.js"></script>
+  <script src="script/hello.js"></script>
+  <link rel="stylesheet" href="script/common.css">
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=10">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduce</title>
+  <head>
+    <style>
+    </style>
+  </head>
+<style>
+    #explainerer{
+        width : 100px;height: 90px;border-radius:50%;border:1px solid #A4A4A4;position:absolute;
+        left:40%;top:30%;font-weight: bold;
+        background:rgba(253,187,187,0.2);z-index:100;
+        padding-top : 3px;
+    }
+    #blocks{
+        width: 100%; height: 100%; position:absolute; background:rgba(146,146,146,0.4);z-index:10;left:0;top:0;
+    }
+    #helloCanvas{
+    	cursor:pointer;
+    }
+</style> 
+  <body class='container' style="text-align:center">
+  
+    <nav class="navbar navbar-default">
+		<div class="container-fluid">
+		    <ul class="nav navbar-nav">
+		      <li class="headerTxt"><a href="index.html">Home</a></li>
+		      <li class="headerTxt"><a href="project.html">Project</a></li>
+		      <!--<li class="headerTxt"><a href="history.html">History</a></li>		      -->
+		      <li class="headerTxt active"><a href="skill.html">Skill</a></li>		      
+		      <li class="headerTxt"><a href="future.html">Future</a></li>
+			</ul>
+		</div>
+    </nav>
+  
+
+    
+    <!-- part2 s-->
+<!--
+    <div class='col-md-12' style='margin-top: 15px;'>
+      <div class='col-md-12 name-container'>
+      	<h3 class='names'><span>Hello Land</span></h3>
+      	<hr class='hrClass'/>
+      </div>	    
+      <div id='' class='col-md-12'>
+		<canvas id='helloCanvas' height='300'></canvas>
+      </div>
+    </div>    
+-->
+    <!-- part2 e-->  
+
+    
+    <!-- part1 s-->
+    <div class='col-md-12 showingCons'>
+      <div class='col-md-12 name-container'>
+      	<h3 class='names'><span>My skill</span></h3>
+      	<hr class='hrClass'/>
+      </div>	    
+      <div id='' class='col-md-12'>
+	    <div id='' class='col-md-4'>
+	      <div class="alert alert-warning" >스킬을 보고싶으면 아래테그를 드래그해서 우측에 넣어보세요.</div>
+	      <div class="dragger alert tlqkf" drg-type='1'>Front-end</div>
+          <div class="dragger alert tlqkf" drg-type='2'>Back-end</div>
+          <div class="dragger alert tlqkf" drg-type='3'>Etc</div>
+	    </div>
+	    <div id='dropper' class='col-md-8'>
+            Drop the Left tag
+	    </div>
+      </div>
+    </div>    
+    <!-- part1 e-->
+    
+    <div id='explainerer'></div>
+    <br/>
+
 	    <div style='width:580px;overflow:hidden;'>
 			<div id='grid' style='position: relative; width:593px;'>
 			    <div id='score' style='position: absolute; left:90%;font-size:33px;font-weight: bold;size: 30px;color: #6c91ff;'>0</div>
@@ -19,14 +98,19 @@
 				</div>
 				<canvas id='backgroundSicne' width='592' height='500'> </canvas>
 			</div>
-		</div>
-	</body>
+	    </div>
+
+  </body>
 </html>
+<script>
+	setHello();
+</script>
+
+
 <script>
 var STOP = false;
 var ppp = 1;
 makeEnemy(ppp);
-
 var player = setInterval(function(){
 	if(STOP){
 		clearInterval(player);
@@ -39,9 +123,7 @@ var player = setInterval(function(){
 		makeEnemy(ppp);
 	}, makeMore * 50);
 },Math.floor(Math.random() * 4500));
-
  
-
 function makeEnemy(idNumer){
 	var BOX = "<div class='box' id='box-"+idNumer+"' style='width:20px;height:100px;position:absolute;top:400px;border:3px solid blue; left:101%;'></div>";
 	$('#grid').append(BOX);
@@ -64,8 +146,6 @@ function makeEnemy(idNumer){
 		});
 	},5);
 }
-
-
  $(document).keydown(function(event){
 	event.stopPropagation();
 	if(event.keyCode == 32){
@@ -74,10 +154,7 @@ function makeEnemy(idNumer){
 	}
 	return true;
  });
-
-
 var radius = 20;  //높이
-
 //위치 체커
 function eventPosition(evt){ 
 	var client_x = evt.left + radius;
@@ -94,8 +171,6 @@ function eventPosition(evt){
 		}
 	}
 }
-
-
 //움직임
 function moveMove(jum){	
 	var maxiMum = -1;
@@ -117,8 +192,6 @@ function moveMove(jum){
 		}
 	},20);
 }
-
-
 /* Define Background Class */ 
 function Background(assetObj,canvasElement){
    this.assetObj = assetObj; 
@@ -126,7 +199,6 @@ function Background(assetObj,canvasElement){
    this.canvasContext = canvasElement.getContext('2d'); //Canvas Context
    this.spritesX = 0;  //Image X Position 
 }
-
 Background.prototype.startAnimation = function(){ 
 	//Clear Canvas  
 	this.canvasContext.clearRect(0, 0, this.canvasSize.width, this.canvasSize.height);
@@ -142,12 +214,10 @@ Background.prototype.startAnimation = function(){
     }     
 	this.spritesX = (this.spritesX + this.assetObj.spritesRate) % 1;
 } 
-
 var fps = 60;      //frame per second
 var background;    //Character Instance 
 var canvasElement; //Canvas Element
 var asset;         //Asset Image Ojbect    
-
 function init(){ 
 	canvasElement = document.getElementById("backgroundSicne");   
 	//Create Asset Image Ojbect
@@ -156,17 +226,14 @@ function init(){
 	//Assign Imgae Load Event
 	asset.onload = onAssetLoadComplete;  
 }
-
 function onAssetLoadComplete(){ 
 	var assetObj = {bgImage:asset, spritesRate:0.007}; 
 	background = new Background(assetObj,canvasElement);
 	setInterval(animationLoop, 1000 / fps); 
 }
-
 function animationLoop(){
 	background.startAnimation();
 }
-
 init();
 //gm_background
 /*
@@ -177,21 +244,16 @@ var config = {
 };
 firebase.initializeApp(config);
 var database = firebase.database();
-
 writeUserData('hello',300);
 writeUserData('world',600);
-
 function writeUserData(userId, name) {
 	firebase.database().ref('ranking/'+userId).set({
 		id: userId,
 		score: name
 	});
 }
-
-
 firebase.database().ref('/ranking/').once('value').then(function(datas) {
 	console.log(datas.val());
 });
 */
-
 </script>
