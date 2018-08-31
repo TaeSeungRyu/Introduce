@@ -91,6 +91,15 @@
     <div id='explainerer'></div>
 
 
+	<div style='width:580px;overflow:hidden;'>
+		<div id='grid' style='position: relative; width:593px;'>
+			<div id='user' style='position:absolute;top:300px;'>
+				<image src='image/user.gif' style=" transform: scaleX(-1);width:180px;">
+			</div>
+			<canvas id='backgroundSicne' width='592' height='500'> </canvas>
+		</div>
+	</div>
+
   </body>
 </html>
 <script>
@@ -99,7 +108,166 @@
 
 
 
+<script>
+	//Working....Ing................
+var BOX = "";
+
+/*
+var num = 100;
+var mover = setInterval(function(){
+	$('.box').css('left',num+"%");
+	num -= 0.25;
+	if(num <= -10){
+		clearInterval(mover);
+	}
+	$('.box').each(function(evt){
+		console.log("a:"+eventPosition(evt));
+	});
+},1);
+*/
+//테스트용+---------------   --------*-*-*-*-*-*-*-*   --------*-*-*-*-*-*-*-*
+BOX = "<div class='box' id='box-1' style='width:20px;height:100px;position:absolute;top:400px;left:101%; background: #929292;border-radius:3px'></div>";
+$('#grid').append(BOX);
+var num = 100;
+var mmm = setInterval(function(){
+	$('.box').css('left',num+"%");
+	num -= 20;
+	if(num <= -10){
+		$('#box-1').remove();
+		clearInterval(mmm);
+	}
+	$('.box').each(function(evt){
+		eventPosition($(this).offset());
+	});
+},1000);
+
+var ppp = 1;
+setInterval(function(){
+	BOX = "<div class='box' id='box-"+ppp+"' style='width:20px;height:100px;position:absolute;top:400px;left:101%; background: #929292;border-radius:3px'></div>";
+	$('#grid').append(BOX);
+	var num = 100;
+	var mover = setInterval(function(){
+		$('.box').css('left',num+"%");
+		num -= 20;
+		if(num <= -10){
+			$('#' + 'box-'+ppp).remove();
+			clearInterval(mover);
+		}
+		$('.box').each(function(evt){
+			eventPosition($(this).offset());
+		});
+	},1000);
+	ppp++;
+},10000);
+//테스트용+---------------   --------*-*-*-*-*-*-*-*   --------*-*-*-*-*-*-*-*
 
 
 
+ $(document).keydown(function(event){
+	event.stopPropagation();
+	console.log(event.keyCode);
+	if(event.keyCode == 32){
+		moveMove();
+		return false;
+	}
+	return true;
+ });
 
+var radius = 20;
+var point_x = 593/2;
+var point_y = 500/2;
+
+//console.log("0." + point_x + " | " + point_y);
+
+function eventPosition(evt){ //위치 체커
+	var client_x = evt.left + radius;
+    var client_y = evt.top + radius;
+    var offset = $('#user').offset();
+    var canvas_x = offset.left + 180; //클라 180 x축 끝     200
+    var canvas_y = offset.top; 
+
+	console.log("en : "+client_y +", ali : "+canvas_y);
+	if(client_x - canvas_x <= 0){
+		if(client_y - canvas_y <= 140){ 
+			console.log('x pass!'); 
+			//alert('boom!');
+		}
+	}
+}
+
+
+
+function moveMove(jum){	
+	var maxiMum = -1;
+	var returnNum = 0;
+	var stop = false;
+	var jumpper = setInterval(function(){
+		var pos = $('#user').offset();
+		console.log('ee');
+		if(maxiMum <= -13){
+			stop = true;
+			if(returnNum >= 12){
+				clearInterval(jumpper);
+			}
+			$('#user').offset({'top':pos.top += returnNum});
+			returnNum++;
+		}
+		else if(!stop){
+			$('#user').offset({'top':pos.top += maxiMum});
+			maxiMum --;
+		}
+	},20);
+}
+
+
+/* Define Background Class */ 
+function Background(assetObj,canvasElement){
+   this.assetObj = assetObj; 
+   this.canvasSize = {width: canvasElement.width, height: canvasElement.height};   //Canvas Size
+   this.canvasContext = canvasElement.getContext('2d'); //Canvas Context
+   this.spritesX = 0;  //Image X Position 
+}
+
+Background.prototype.startAnimation = function(){ 
+	//Clear Canvas  
+	this.canvasContext.clearRect(0, 0, this.canvasSize.width, this.canvasSize.height);
+    //Draw Background Image
+	var drawX = this.spritesX * this.assetObj.bgImage.width;
+	var drawWidth = this.assetObj.bgImage.width - drawX;
+	this.canvasContext.drawImage(this.assetObj.bgImage, 
+                    drawX, 0, drawWidth, this.assetObj.bgImage.height, 
+                    0, 0, drawWidth, this.assetObj.bgImage.height);     
+	if(drawWidth < this.assetObj.bgImage.width) {
+        var fillDrawWidth = this.assetObj.bgImage.width - drawWidth;
+        this.canvasContext.drawImage(this.assetObj.bgImage,0, 0, fillDrawWidth, this.assetObj.bgImage.height, drawWidth, 0, fillDrawWidth,this.assetObj.bgImage.height);
+    }     
+	this.spritesX = (this.spritesX + this.assetObj.spritesRate) % 1;
+} 
+
+var fps = 60;      //frame per second
+var background;    //Character Instance 
+var canvasElement; //Canvas Element
+var asset;         //Asset Image Ojbect    
+
+function init(){ 
+	canvasElement = document.getElementById("backgroundSicne");   
+	//Create Asset Image Ojbect
+	asset = new Image(); 
+	asset.src = 'image/gm_background.png';       
+	//Assign Imgae Load Event
+	asset.onload = onAssetLoadComplete;  
+}
+
+function onAssetLoadComplete(){ 
+	var assetObj = {bgImage:asset, spritesRate:0.007}; 
+	background = new Background(assetObj,canvasElement);
+	setInterval(animationLoop, 1000 / fps); 
+}
+
+function animationLoop(){
+	background.startAnimation();
+}
+
+init();
+
+</script>
