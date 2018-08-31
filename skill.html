@@ -15,7 +15,7 @@
 			<div id='grid' style='position: relative; width:593px;'>
 			    <div id='score' style='position: absolute; left:90%;font-size:33px;font-weight: bold;size: 30px;color: #6c91ff;'>0</div>
 				<div id='user' style='position:absolute;top:300px;'>
-					<image src='user.gif' style=" transform: scaleX(-1);width:180px;">
+					<image src='image/user.gif' style=" transform: scaleX(-1);width:180px;">
 				</div>
 				<canvas id='backgroundSicne' width='592' height='500'> </canvas>
 			</div>
@@ -152,7 +152,7 @@ function init(){
 	canvasElement = document.getElementById("backgroundSicne");   
 	//Create Asset Image Ojbect
 	asset = new Image(); 
-	asset.src = 'gm_background.png';       
+	asset.src = 'image/gm_background.png';       
 	//Assign Imgae Load Event
 	asset.onload = onAssetLoadComplete;  
 }
