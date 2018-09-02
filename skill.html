@@ -141,9 +141,8 @@
 						$('#explain').remove();	
 						gameLoader();
 						$('#grid').css('display','inline-block');
-					},3000);
+					},1500);
 				}
-
 			});
 		}
 	}
@@ -151,7 +150,6 @@
 
 
 <script>
-
 function gameLoader(){
 	var STOP = false;  //시작 종료 변수
 	var ppp = 1;  //장애물 인덱스
@@ -191,7 +189,6 @@ function gameLoader(){
 			});
 		},5);
 	}
-
 	//스페이스 이벤트 등록
 	$(document).keydown(function(event){
 		event.stopPropagation();
@@ -217,7 +214,6 @@ function gameLoader(){
 			clearInterval(endGameChecker);
 		}
 	}
-
 	var radius = 20;  //높이
 	//위치 체커
 	function eventPosition(evt){ 
@@ -246,7 +242,7 @@ function gameLoader(){
 			if(maxiMum <= -13){
 				stop = true;
 				littleWait++;
-				if(littleWait > 10){
+				if(littleWait > 15){
 					if(returnNum >= 12){
 						clearInterval(jumpper);
 					}
@@ -303,7 +299,6 @@ function gameLoader(){
 		background.startAnimation();
 	}
 	init();  //화면구성 실행
-
 	//파이어베이스
 	function firebaseUsing(id,score){
 		var config = {
@@ -325,9 +320,8 @@ function gameLoader(){
 			makeSocreBoard(datas.val());
 		});
 	}
-	
-	
-	function makeSocreBoard(jsonData){  //점수판 만들기..나중에 정렬이나 할까..
+
+	function makeSocreBoard(jsonData){ 
 		var header = "<div id='boardBody' class='col-md-12' style='padding-left: 210px; padding-right: 210px;padding-top: 30px;font-size: 20px;font-weight:  bold;color: #6e6eff;'>  ";
 		header +=    "	<div class='row' style='background: white; opacity: 0.7;'>  ";
 		header +=    "		<div class='col-md-4'>순서</div> <div class='col-md-4'>이름</div>  <div class='col-md-4'>점수</div>  ";
@@ -335,15 +329,26 @@ function gameLoader(){
 		header +=    "</div>  ";
 		$('.scoreBoard').append(header);
 		var nums = 1;
-		$.each(jsonData, function(key, value){
-			console.log('key:' + key + ' / ' + 'value:' + value);
+		var convArray = getDataSorting(jsonData);  //Json 배열변환 후 정렬
+		convArray.forEach(function(items){
 				var child = "<div class='row' style='background: white; opacity: 0.7;'>";
-				child +=	"	<div class='col-md-4'>"+nums+"</div> <div class='col-md-4'>"+key+"</div>  <div class='col-md-4'>"+value.score+"</div>";
+				child +=	"	<div class='col-md-4'>"+nums+"</div> <div class='col-md-4'>"+items.id+"</div>  <div class='col-md-4'>"+items.score+"</div>";
 				child +=    "</div>";
 			$('#boardBody').append(child);
 			nums++;
 		});
 	}
-}	
 
+	function getDataSorting(jjson){  //정렬
+		var conv = new Array();
+		$.each(jjson, function(key, value){
+			conv.push(value);
+		});
+		function custonSort(a, b) { if(Number(a.score) == Number(b.score)){ return 0} return Number(a.score) < Number(b.score) ? 1 : -1; }
+		conv.sort(custonSort);
+		return conv;
+	}
+
+
+}	
 </script>
