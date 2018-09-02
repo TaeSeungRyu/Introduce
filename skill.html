@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>  
+  <script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
   <script src="script/Common.js"></script>
   <script src="script/circle.js"></script>
   <script src="script/skill.js"></script>
@@ -35,6 +36,18 @@
     #helloCanvas{
     	cursor:pointer;
     }
+	.explainTxt{
+		color: gray;
+		font-weight: bold;
+		padding: 3px;
+	}
+	.scoreBoard{
+		position: absolute;
+		left: 0;
+		width: 100%;
+		height: 300px;
+		top: 0;
+	}
 </style> 
   <body class='container' style="text-align:center">
   
@@ -52,7 +65,6 @@
   
 
     
-    <!-- part2 s-->
 <!--
     <div class='col-md-12' style='margin-top: 15px;'>
       <div class='col-md-12 name-container'>
@@ -64,9 +76,27 @@
       </div>
     </div>    
 -->
-    <!-- part2 e-->  
-
-    
+      <!-- part0 s-->  
+	  <div class='col-md-12 showingCons' style='min-height:250px;margin-bottom:20px;'>
+	    <div style='width:580px;overflow:hidden;display:inline-block;border-redius:10px;'>
+		    <div id='explain' style='position: absolute;width : 100%;left:0px;'>
+			    <div class='explainTxt'>1. HTML로 직접 구현한 러닝게임 입니다.</div>
+				<div class='explainTxt'>2. <strong style='color: #f53535;'>스페이스키</strong>를 누르면 <strong style='color: #f53535;'>점프<strong>하고, 장애물과 충돌 시 종료됩니다.</div>
+				<div class='explainTxt'>3. 스페이스키를 <strong style='color: #f53535;'>여러번</strong> 누르면 좀더 높게 점프합니다.</div>
+				<div class='explainTxt'>4. 종료 후 구글 FireBase에 접속하여 랭킹을 등록 / 확인 가능 합니다.</div>
+				<input type='text' id='userId' placeHolder='아이디를 입력하세요' class='form-control' style='width:50%; display:inline-block;'/>
+				<input type='button' value='시작' onclick='startGame();' class='btn btn-primary'/>
+			</div>
+			<div id='grid' style='position: relative; width:593px; display: none;'>
+			    <div id='score' style='position: absolute; left: 80%;font-size:33px;font-weight: bold;size: 30px;color: #6c91ff;'>0</div>
+				<div id='user' style='position:absolute;top:300px;'>
+					<image src='image/user.gif' style=" transform: scaleX(-1);width:180px;">
+				</div>
+				<canvas id='backgroundSicne' width='592' height='500'> </canvas>
+			</div>
+	    </div>
+	  </div>
+      <!-- part0 e-->  
     <!-- part1 s-->
     <div class='col-md-12 showingCons'>
       <div class='col-md-12 name-container'>
@@ -87,173 +117,233 @@
     </div>    
     <!-- part1 e-->
     
-    <div id='explainerer'></div>
-    <br/>
-
-	    <div style='width:580px;overflow:hidden;'>
-			<div id='grid' style='position: relative; width:593px;'>
-			    <div id='score' style='position: absolute; left:90%;font-size:33px;font-weight: bold;size: 30px;color: #6c91ff;'>0</div>
-				<div id='user' style='position:absolute;top:300px;'>
-					<image src='image/user.gif' style=" transform: scaleX(-1);width:180px;">
-				</div>
-				<canvas id='backgroundSicne' width='592' height='500'> </canvas>
-			</div>
-	    </div>
 
   </body>
 </html>
 <script>
-	setHello();
+	setEnviro();
+</script>
+<script>
+	//setHello();
+	var userJs = {};
+	var startingNum = 0;
+	function startGame(){
+		if($('#userId').val() == null || $('#userId').val() == '' ){
+			alert('아이디가 비어있습니다.');
+		}
+		else{
+			userJs.userid = $('#userId').val();
+			$('#explain').children().fadeOut('slow',function(){
+				$('#explain').append('<div class="explainTxt">잠시 후 시작합니다.</div>');
+				if(startingNum == 0){
+					startingNum = 1;
+					setTimeout(function(){
+						$('#explain').remove();	
+						gameLoader();
+						$('#grid').css('display','inline-block');
+					},3000);
+				}
+
+			});
+		}
+	}
 </script>
 
 
 <script>
-var STOP = false;
-var ppp = 1;
-makeEnemy(ppp);
-var player = setInterval(function(){
-	if(STOP){
-		clearInterval(player);
-	}
-	ppp++;
-	var makeMore = Math.floor(Math.random() * 10); 
-	makeEnemy(ppp);
-	setTimeout(function(){
-		ppp++;
-		makeEnemy(ppp);
-	}, makeMore * 50);
-},Math.floor(Math.random() * 4500));
- 
-function makeEnemy(idNumer){
-	var BOX = "<div class='box' id='box-"+idNumer+"' style='width:20px;height:100px;position:absolute;top:400px;border:3px solid blue; left:101%;'></div>";
-	$('#grid').append(BOX);
-	var num = 100;
-	var mmm = setInterval(function(){
+
+function gameLoader(){
+	var STOP = false;  //시작 종료 변수
+	var ppp = 1;  //장애물 인덱스
+	makeEnemy(ppp);  //처음 적 만들기
+	var player = setInterval(function(){  //처음이후 인터벌하게 적 만들기
 		if(STOP){
-			clearInterval(mmm);
+			clearInterval(player);
 		}
-		$('#'+'box-'+idNumer).css('left',num+"%");
-		num -= (Math.random() * (0.050 - 0.600) + 0.600).toFixed(4);
-		if(num <= 1){
-			$('#'+'box-'+idNumer).remove();
-			var score = Number($('#score').text());
-			score += 100;
-			$('#score').text(score);
-			clearInterval(mmm);
-		}
-		$('.box').each(function(evt){
-			eventPosition($(this).offset());
-		});
-	},5);
-}
- $(document).keydown(function(event){
-	event.stopPropagation();
-	if(event.keyCode == 32){
-		moveMove();
-		return false;
-	}
-	return true;
- });
-var radius = 20;  //높이
-//위치 체커
-function eventPosition(evt){ 
-	var client_x = evt.left + radius;
-    var client_y = evt.top + radius;
-    var offset = $('#user').offset();
-    var canvas_x = offset.left + 180; //클라 180 x축 끝     200
-    var canvas_y = offset.top; 
-	//console.log("en : "+client_y +", ali : "+canvas_y);
-	if(client_x - canvas_x <= 0){
-		if(client_y - canvas_y <= 140){ 
-			console.log('x pass!'); 
-			//alert('boom!');
-			STOP = true;
-		}
-	}
-}
-//움직임
-function moveMove(jum){	
-	var maxiMum = -1;
-	var returnNum = 0;
-	var stop = false;
-	var jumpper = setInterval(function(){
-		var pos = $('#user').offset();
-		if(maxiMum <= -13){
-			stop = true;
-			if(returnNum >= 12){
-				clearInterval(jumpper);
+		ppp++;
+		var makeMore = Math.floor(Math.random() * 10); 
+		makeEnemy(ppp);
+		setTimeout(function(){
+			ppp++;
+			makeEnemy(ppp);
+		}, makeMore * 50);
+	},Math.floor(Math.random() * 4500));
+	 
+	function makeEnemy(idNumer){  //적을 그리는 펑션
+		var BOX = "<div class='box' id='box-"+idNumer+"' style='width:20px;height:100px;position:absolute;top:400px;border-redius:10px;left:101%;background:repeating-linear-gradient( yellow, red 10%, purple 10% )'></div>";
+		$('#grid').append(BOX);
+		var num = 100;
+		var mmm = setInterval(function(){
+			if(STOP){
+				clearInterval(mmm);
 			}
-			$('#user').offset({'top':pos.top += returnNum});
-			returnNum++;
+			$('#'+'box-'+idNumer).css('left',num+"%");
+			num -= (Math.random() * (0.050 - 0.600) + 0.600).toFixed(4);
+			if(num <= 1){
+				$('#'+'box-'+idNumer).remove();
+				var score = Number($('#score').text());
+				score += 100;
+				$('#score').text(score);
+				clearInterval(mmm);
+			}
+			$('.box').each(function(evt){
+				eventPosition($(this).offset());
+			});
+		},5);
+	}
+
+	//스페이스 이벤트 등록
+	$(document).keydown(function(event){
+		event.stopPropagation();
+		if(event.keyCode == 32){
+			moveMove();
+			return false;
 		}
-		else if(!stop){
-			$('#user').offset({'top':pos.top += maxiMum});
-			maxiMum --;
-		}
-	},20);
-}
-/* Define Background Class */ 
-function Background(assetObj,canvasElement){
-   this.assetObj = assetObj; 
-   this.canvasSize = {width: canvasElement.width, height: canvasElement.height};   //Canvas Size
-   this.canvasContext = canvasElement.getContext('2d'); //Canvas Context
-   this.spritesX = 0;  //Image X Position 
-}
-Background.prototype.startAnimation = function(){ 
-	//Clear Canvas  
-	this.canvasContext.clearRect(0, 0, this.canvasSize.width, this.canvasSize.height);
-    //Draw Background Image
-	var drawX = this.spritesX * this.assetObj.bgImage.width;
-	var drawWidth = this.assetObj.bgImage.width - drawX;
-	this.canvasContext.drawImage(this.assetObj.bgImage, 
-                    drawX, 0, drawWidth, this.assetObj.bgImage.height, 
-                    0, 0, drawWidth, this.assetObj.bgImage.height);     
-	if(drawWidth < this.assetObj.bgImage.width) {
-        var fillDrawWidth = this.assetObj.bgImage.width - drawWidth;
-        this.canvasContext.drawImage(this.assetObj.bgImage,0, 0, fillDrawWidth, this.assetObj.bgImage.height, drawWidth, 0, fillDrawWidth,this.assetObj.bgImage.height);
-    }     
-	this.spritesX = (this.spritesX + this.assetObj.spritesRate) % 1;
-} 
-var fps = 60;      //frame per second
-var background;    //Character Instance 
-var canvasElement; //Canvas Element
-var asset;         //Asset Image Ojbect    
-function init(){ 
-	canvasElement = document.getElementById("backgroundSicne");   
-	//Create Asset Image Ojbect
-	asset = new Image(); 
-	asset.src = 'image/gm_background.png';       
-	//Assign Imgae Load Event
-	asset.onload = onAssetLoadComplete;  
-}
-function onAssetLoadComplete(){ 
-	var assetObj = {bgImage:asset, spritesRate:0.007}; 
-	background = new Background(assetObj,canvasElement);
-	setInterval(animationLoop, 1000 / fps); 
-}
-function animationLoop(){
-	background.startAnimation();
-}
-init();
-//gm_background
-/*
-var config = {
-	apiKey: "AIzaSyAT59Nm90cVxZFa5HXCZl_OsWOgPrKNDS8",
-	authDomain: "introduce-e531e.firebaseapp.com",
-	databaseURL: "https://introduce-e531e.firebaseio.com/"
-};
-firebase.initializeApp(config);
-var database = firebase.database();
-writeUserData('hello',300);
-writeUserData('world',600);
-function writeUserData(userId, name) {
-	firebase.database().ref('ranking/'+userId).set({
-		id: userId,
-		score: name
+		return true;
 	});
-}
-firebase.database().ref('/ranking/').once('value').then(function(datas) {
-	console.log(datas.val());
-});
-*/
+	//게임종료 체커
+	var endGameChecker = setInterval(function(){
+		endGame();
+	},1000);
+	function endGame(){
+		if(STOP){
+		    var userScore = $('#score').text();
+			var userIdForFireBase = userJs.userid;
+			console.log('userScore : ' + userScore);
+			console.log('userIdForFireBase : ' + userIdForFireBase);
+			$('#grid').css('opacity', 0.5);
+			$('#grid').parent().append('<div class="scoreBoard" style="position:absolute;left:0;width:100%;"></div>');
+			firebaseUsing(userIdForFireBase,userScore);
+			clearInterval(endGameChecker);
+		}
+	}
+
+	var radius = 20;  //높이
+	//위치 체커
+	function eventPosition(evt){ 
+		var client_x = evt.left + radius;
+		var client_y = evt.top + radius;
+		var offset = $('#user').offset();
+		var canvas_x = offset.left + 130; //클라 180 x축 끝     200, 조금 안쪽으로 보정하기위해 기준값 180을 조금 줄임
+		var canvas_y = offset.top; 
+		//console.log("en : "+client_y +", ali : "+canvas_y);
+		if(client_x - canvas_x <= 0){
+			if(client_y - canvas_y <= 140){ 
+				console.log('x pass!'); 
+				//alert('boom!');
+				STOP = true;
+			}
+		}
+	}
+	//움직임
+	function moveMove(jum){	
+		var maxiMum = -1;
+		var returnNum = 0;
+		var stop = false;
+		var littleWait = 1;  //공중에 잠시 떠있기 변수
+		var jumpper = setInterval(function(){
+			var pos = $('#user').offset();
+			if(maxiMum <= -13){
+				stop = true;
+				littleWait++;
+				if(littleWait > 10){
+					if(returnNum >= 12){
+						clearInterval(jumpper);
+					}
+					$('#user').offset({'top':pos.top += returnNum});
+					returnNum++;
+				}
+			}
+			else if(!stop){
+				$('#user').offset({'top':pos.top += maxiMum});
+				maxiMum --;
+			}
+		},20);
+	}
+	/* Define Background Class */ 
+	function Background(assetObj,canvasElement){
+	   this.assetObj = assetObj; 
+	   this.canvasSize = {width: canvasElement.width, height: canvasElement.height};   //Canvas Size
+	   this.canvasContext = canvasElement.getContext('2d'); //Canvas Context
+	   this.spritesX = 0;  //Image X Position 
+	}
+	Background.prototype.startAnimation = function(){ 
+		//Clear Canvas  
+		this.canvasContext.clearRect(0, 0, this.canvasSize.width, this.canvasSize.height);
+		//Draw Background Image
+		var drawX = this.spritesX * this.assetObj.bgImage.width;
+		var drawWidth = this.assetObj.bgImage.width - drawX;
+		this.canvasContext.drawImage(this.assetObj.bgImage, 
+						drawX, 0, drawWidth, this.assetObj.bgImage.height, 
+						0, 0, drawWidth, this.assetObj.bgImage.height);     
+		if(drawWidth < this.assetObj.bgImage.width) {
+			var fillDrawWidth = this.assetObj.bgImage.width - drawWidth;
+			this.canvasContext.drawImage(this.assetObj.bgImage,0, 0, fillDrawWidth, this.assetObj.bgImage.height, drawWidth, 0, fillDrawWidth,this.assetObj.bgImage.height);
+		}     
+		this.spritesX = (this.spritesX + this.assetObj.spritesRate) % 1;
+	} 
+	var fps = 60;      //frame per second
+	var background;    //Character Instance 
+	var canvasElement; //Canvas Element
+	var asset;         //Asset Image Ojbect    
+	function init(){ 
+		canvasElement = document.getElementById("backgroundSicne");   
+		//Create Asset Image Ojbect
+		asset = new Image(); 
+		asset.src = 'image/gm_background.png';       
+		//Assign Imgae Load Event
+		asset.onload = onAssetLoadComplete;  
+	}
+	function onAssetLoadComplete(){ 
+		var assetObj = {bgImage:asset, spritesRate:0.007}; 
+		background = new Background(assetObj,canvasElement);
+		setInterval(animationLoop, 1000 / fps); 
+	}
+	function animationLoop(){
+		background.startAnimation();
+	}
+	init();  //화면구성 실행
+
+	//파이어베이스
+	function firebaseUsing(id,score){
+		var config = {
+			apiKey: "AIzaSyAT59Nm90cVxZFa5HXCZl_OsWOgPrKNDS8",
+			authDomain: "introduce-e531e.firebaseapp.com",
+			databaseURL: "https://introduce-e531e.firebaseio.com/"
+		};
+		firebase.initializeApp(config);
+		var database = firebase.database();
+		writeUserData(id,score);
+		//writeUserData('world',600);
+		function writeUserData(userId, name) {
+			firebase.database().ref('ranking/'+userId).set({
+				id: userId,
+				score: name
+			});
+		}
+		firebase.database().ref('/ranking/').once('value').then(function(datas) {
+			makeSocreBoard(datas.val());
+		});
+	}
+	
+	
+	function makeSocreBoard(jsonData){  //점수판 만들기..나중에 정렬이나 할까..
+		var header = "<div id='boardBody' class='col-md-12' style='padding-left: 210px; padding-right: 210px;padding-top: 30px;font-size: 20px;font-weight:  bold;color: #6e6eff;'>  ";
+		header +=    "	<div class='row' style='background: white; opacity: 0.7;'>  ";
+		header +=    "		<div class='col-md-4'>순서</div> <div class='col-md-4'>이름</div>  <div class='col-md-4'>점수</div>  ";
+		header +=    "	</div>  ";
+		header +=    "</div>  ";
+		$('.scoreBoard').append(header);
+		var nums = 1;
+		$.each(jsonData, function(key, value){
+			console.log('key:' + key + ' / ' + 'value:' + value);
+				var child = "<div class='row' style='background: white; opacity: 0.7;'>";
+				child +=	"	<div class='col-md-4'>"+nums+"</div> <div class='col-md-4'>"+key+"</div>  <div class='col-md-4'>"+value.score+"</div>";
+				child +=    "</div>";
+			$('#boardBody').append(child);
+			nums++;
+		});
+	}
+}	
+
 </script>
