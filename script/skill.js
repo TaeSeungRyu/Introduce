@@ -9,7 +9,7 @@
                 if(type == '1'){
                     $(this).children().remove();
                     $(this).append($('<table>',{'id':'moreTable','class':'table table-bordered'}));
-                    var skillArr = [['Html5','상'],['Canvas','상'],['Javascript','중상'],['Jquery','상'],['Jquery 관련 PlatForm','상'],['Angular.js','중하']];
+                    var skillArr = [['Html5','상'],['Javascript','상'],['Angular v2.0↑','상'],['TypeScript','상'],['Jquery','상'],['Jquery 관련 PlatForm','상']];
                     $('#moreTable').append($('<tr>',{'id':'explainer','class':'tableTxts'}));
                     $('#explainer').append("<th>Target</th><th>Level</th>");
                     skillArr.forEach(function(val,num){
@@ -20,7 +20,7 @@
                 else if(type == '2'){
                     $(this).children().remove();
                     $(this).append($('<table>',{'id':'moreTable','class':'table table-bordered'}));
-                    var skillArr = [['Java & JSP','상'],['PhP','중상'],['NodeJs','중상'],['Python','중하'],['Spring & Mybatis','중상'],['Redis 서버','중상'],['Mqtt관련 서버','중상'],['FCM','중']];
+                    var skillArr = [['Java & JSP','상'],['NodeJs','중상'],['PhP','중'],['Python','중하'],['Spring & Mybatis','중상'],['Mqtt관련 서버','중'],['FCM','중']];
                     $('#moreTable').append($('<tr>',{'id':'explainer','class':'tableTxts'}));
                     $('#explainer').append("<th>Target</th><th>Level</th>");
                     skillArr.forEach(function(val,num){
@@ -31,7 +31,7 @@
                 else{
                     $(this).children().remove();
                     $(this).append($('<table>',{'id':'moreTable','class':'table table-bordered'}));
-                    var skillArr = [['SVN & Git','중'],['DataBase(R-DB)','중상'],['Eclipse','중'],['Mongo-db','하'],['Server(Centos, Ubunto)','중'],['Server(WindowServer)','중']];
+                    var skillArr = [['SVN & Git','중'],['DataBase(R-DB)','중상'],['Eclipse','중'],['비관계형 db(Mongo-db,redis)','중'],['파이어베이스','중'],['Server(Centos, Ubunto)','중'],['Server(WindowServer)','중']];
                     $('#moreTable').append($('<tr>',{'id':'explainer','class':'tableTxts'}));
                     $('#explainer').append("<th>Target</th><th>Level</th>");
                     skillArr.forEach(function(val,num){
