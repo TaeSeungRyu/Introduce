@@ -9,7 +9,7 @@
                 if(type == '1'){
                     $(this).children().remove();
                     $(this).append($('<table>',{'id':'moreTable','class':'table table-bordered'}));
-                    var skillArr = [['Html5','상'],['Javascript','상'],['Angular v2.0↑','상'],['TypeScript','상'],['Jquery','상'],['Jquery 관련 PlatForm','상']];
+                    var skillArr = [['Javascript','상'],['Angular v2.0↑','상'],['TypeScript','상'],['Jquery','상']];
                     $('#moreTable').append($('<tr>',{'id':'explainer','class':'tableTxts'}));
                     $('#explainer').append("<th>Target</th><th>Level</th>");
                     skillArr.forEach(function(val,num){
@@ -20,7 +20,7 @@
                 else if(type == '2'){
                     $(this).children().remove();
                     $(this).append($('<table>',{'id':'moreTable','class':'table table-bordered'}));
-                    var skillArr = [['Java & JSP','상'],['NodeJs','중상'],['PhP','중'],['Python','중하'],['Spring & Mybatis','상'],['Mqtt관련 서버','중'],['FCM','중']];
+                    var skillArr = [['Java & JSP','상'],['Spring & Mybatis','상'],['NodeJs','중상'],['PhP','중'],['Python','중하'],['Mqtt관련 서버','중'],['FCM','중']];
                     $('#moreTable').append($('<tr>',{'id':'explainer','class':'tableTxts'}));
                     $('#explainer').append("<th>Target</th><th>Level</th>");
                     skillArr.forEach(function(val,num){
