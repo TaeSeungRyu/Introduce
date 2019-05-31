@@ -1,5 +1,5 @@
 var price = new Array();
-price[0] = [ 95, 'Web Front-End','Jquery, 앵귤러(버전2이상), 타입스크립트, Bootstrap, Html css, Html canvas를 잘 다룹니다.' ];
+price[0] = [ 95, 'Web Front-End','Javascript, Jquery, 앵귤러(버전2이상), 타입스크립트, Bootstrap 등을 잘 다룹니다.' ];
 price[1] = [ 90, 'Jsp & Spring','Jsp and Spring, mybatis, hibernate를 개념있게 사용 할 줄 압니다.' ];
 price[2] = [ 90, 'NodeJs', 'NodeJs로 서버를 구성할 줄 압니다.' ];
 price[3] = [ 70, 'PHP','php로 프로그래밍을 할줄 압니다.' ];
