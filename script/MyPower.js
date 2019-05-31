@@ -1,12 +1,12 @@
 var price = new Array();
-price[0] = [ 95, 'Web Front-End','Jquery, Bootstrap, Html css, Html canvas를 잘 다룹니다.' ];
+price[0] = [ 95, 'Web Front-End','Jquery, 앵귤러(버전2이상), 타입스크립트, Bootstrap, Html css, Html canvas를 잘 다룹니다.' ];
 price[1] = [ 90, 'Jsp & Spring','Jsp and Spring, mybatis, hibernate를 개념있게 사용 할 줄 압니다.' ];
 price[2] = [ 90, 'NodeJs', 'NodeJs로 서버를 구성할 줄 압니다.' ];
 price[3] = [ 70, 'PHP','php로 프로그래밍을 할줄 압니다.' ];
 price[4] = [ 40, 'Python', 'Python은 기초정도 수준의 서버를 만들어 보았습니다.' ];
-price[5] = [ 70, 'DataBase','다루어본 데이터베이스로는 Mssql, Mysql, Oracle, Postgre이 있습니다.' ];
+price[5] = [ 70, 'DataBase','다루어본 데이터베이스로는 Mssql, Mysql, Oracle, 몽고DB, Redis, Postgre이 있습니다.' ];
 price[6] = [ 80, 'Android', '안드로이드 프로그래밍 가능합니다.(뷰는 웹뷰)' ];
-price[7] = [ 50, 'IOS', 'IOS는 어느정도 가능합니다.' ];
+price[7] = [ 50, 'IOS', 'IOS는 웹뷰형식은 조금 가능합니다.' ];
 function setPower(){
 	var width = $('#mypower').width();
 	var height = $('#mypower').height();
