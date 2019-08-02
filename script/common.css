@@ -166,7 +166,8 @@
 	background:#f3faff;
 }
 .container{
-	background: linear-gradient(#f6ffff, #b6ccfb ) fixed;
+	/*background: linear-gradient(#f6ffff, #b6ccfb ) fixed;*/
+	background: #b7c7e661
 }
 .tlqkf{
 	background:#ffdcdc;
